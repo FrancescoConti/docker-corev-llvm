@@ -75,3 +75,19 @@ RUN cd corev-llvm-project && cmake -S llvm -B build -G Ninja \
 -DLLVM_USE_LINKER=lld \
 -DLLVM_OPTIMIZED_TABLEGEN=On
 RUN cd corev-llvm-project && cmake --build build
+
+RUN cd corev-llvm-project && cmake -S llvm -B build -G Ninja \
+-DCMAKE_BUILD_TYPE=Release \
+-DLLVM_CCACHE_BUILD=On \
+-DLLVM_BUILD_TESTS=Off \
+-DLLVM_TARGETS_TO_BUILD=RISCV \
+-DLLVM_ENABLE_PROJECTS="clang;lld" \
+-DLLVM_ENABLE_LIBCXX=Off \
+-DBUILD_SHARED_LIBS=Off \
+-DLLVM_BUILD_EXAMPLES=Off \
+-DLLVM_ENABLE_BINDINGS=Off \
+-DLLVM_ENABLE_WARNINGS=On \
+-DLLVM_USE_LINKER=lld \
+-DLLVM_OPTIMIZED_TABLEGEN=On \
+-DCMAKE_INSTALL_PREFIX=/app/corev-llvm
+RUN cd corev-llvm-project/build && ninja install
